@@ -129,31 +129,12 @@ class BaseRestTool(object):
         self._checkResponseCode(response, decodedResp)
 
         # load pagination info
-        if not pagination == None:
-            if ('x-number-of-pages' in response.headers.keys()):
-                pagination.TotalPages = int(response.headers['x-number-of-pages'])
-            if ('x-number-of-items' in response.headers.keys()):
-                pagination.TotalItems = int(response.headers['x-number-of-items'])
+        if pagination is not None:
+            if ('X-Number-Of-Pages' in response.headers.keys()):
+                pagination.TotalPages = int(response.headers['X-Number-Of-Pages'])
+            if ('X-Number-Of-Items' in response.headers.keys()):
+                pagination.TotalItems = int(response.headers['X-Number-Of-Items'])
 
-        #try:
-        #    if not pagination == None:
-        #        pagination.TotalPages = int(response.headers['x-number-of-pages'])
-        #except:
-        #    pagination.TotalPages = 1
-        #    if self._debugMode:
-        #        logging.getLogger(__name__).debug(sys.exc_info()[0])
-        #else:
-        #    try:
-        #        if not pagination == None:
-        #            pagination.TotalItems = int(response.headers['x-number-of-items'])
-        #    except:
-        #        pagination.TotalItems = 0
-        #        if self._debugMode:
-        #            logging.getLogger(__name__).debug(sys.exc_info()[0])
-
-
-        # this can hit create connection performance
-        # response.connection.close()
         return decodedResp
 
     def _checkResponseCode(self, response, decodedResp):
