@@ -31,8 +31,8 @@ except ImportError:
 
 logger = logging.getLogger('mangopay')
 
-requests_session = requests.Session()
 rate_limits = None
+
 
 class APIRequest(object):
 
@@ -51,6 +51,7 @@ class APIRequest(object):
         self.auth_manager = AuthorizationTokenManager(self, storage_strategy)
         self.timeout = timeout
         self.proxies = proxies
+        self.requests_session = requests.Session()
 
     def set_rate_limit(self, rate_limit):
         global rate_limits
@@ -111,11 +112,11 @@ class APIRequest(object):
         request_started.send(url=url, data=truncated_data, headers=headers, method=method)
 
         try:
-            result = requests_session.request(method, url,
-                                              data=data,
-                                              headers=headers,
-                                              timeout=self.timeout,
-                                              proxies=self.proxies)
+            result = self.requests_session.request(method, url,
+                                                   data=data,
+                                                   headers=headers,
+                                                   timeout=self.timeout,
+                                                   proxies=self.proxies)
         except ConnectionError as e:
             msg = '{}'.format(e)
 
