@@ -9,7 +9,7 @@ apikey = None
 is_mock_server_enabled = env_to_bool("MANGOPAY_IS_MOCK_SERVER_ENABLED", False)
 
 PLENTIFIC_NAMESPACE = os.getenv("PLENTIFIC_NAMESPACE", "uk")
-PLENTIFIC_ENV = os.getenv("PLENTIFIC_ENV", "local")
+ENVIRONMENT = os.getenv("ENVIRONMENT", "")
 
 MANGOPAY_URL = os.getenv("MANGOPAY_URL", "https://api.mangopay.com")
 MANGOPAY_SANDBOX_URL = os.getenv("MANGOPAY_URL", "https://api.sandbox.mangopay.com")
@@ -21,7 +21,7 @@ MANGOPAY_DEFAULT_LOCAL_MOCK_SERVER_URL = f"http://mock-server:5000/mock-server/{
 MANGOPAY_MOCK_SERVER_URL = os.environ.get(
     "MANGOPAY_MOCK_SERVER_URL",
     MANGOPAY_DEFAULT_LOCAL_MOCK_SERVER_URL
-    if PLENTIFIC_ENV == "local"
+    if ENVIRONMENT == "local"
     else MANGOPAY_DEFAULT_E2E_MOCK_SERVER_URL
 )
 
