@@ -6,8 +6,6 @@ from .utils import env_to_bool, memoize
 client_id = None
 apikey = None
 
-is_mock_server_enabled = env_to_bool("MANGOPAY_IS_MOCK_SERVER_ENABLED", False)
-
 PLENTIFIC_NAMESPACE = os.getenv("PLENTIFIC_NAMESPACE", "uk")
 ENVIRONMENT = os.getenv("ENVIRONMENT", "")
 
@@ -26,13 +24,9 @@ MANGOPAY_MOCK_SERVER_URL = os.environ.get(
 )
 
 def _get_api_url():
-    if is_mock_server_enabled:
-        return MANGOPAY_MOCK_SERVER_URL
     return MANGOPAY_URL
 
 def _get_sandbox_url():
-    if is_mock_server_enabled:
-        return MANGOPAY_MOCK_SERVER_URL
     return MANGOPAY_SANDBOX_URL
 
 api_url = f'{_get_api_url()}/v2.01/'
